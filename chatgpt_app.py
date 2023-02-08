@@ -9,6 +9,7 @@ Original file is located at
 import openai
 import streamlit as st
 from streamlit_chat import message
+import pandas as pd
 import os 
 # from dotenv import load_dotenv
 # load_dotenv('api_key.env')
