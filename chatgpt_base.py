@@ -1,6 +1,6 @@
 %%writefile streamlit_app.py 
 import streamlit as st
-import pandas as pd
+imprt pandas as pd
 import plotly.express as px
 st.write('# Avocado Prices dashboard')  #st.title('Avocado Prices dashboard')
 # https://markdown-editor.github.io/   This will help build markdown
