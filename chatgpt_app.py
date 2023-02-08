@@ -47,7 +47,8 @@ import plotly.express as px
 st.write('# Avocado Prices dashboard')  #st.title('Avocado Prices dashboard')
 # https://markdown-editor.github.io/   This will help build markdown
 tab1, tab2 = st.tabs(["Tab 1", "Tab2"])
-tab1.write("this is tab 1")
+with tab1:
+    st.radio('Select one:', [1, 2])
 tab2.write("this is tab 2")
 st.markdown('''
 This is a dashboard showing the *average prices* of different types of :avocado:  
