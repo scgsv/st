@@ -26,30 +26,31 @@ def generate_response(prompt):
     message=completion.choices[0].text
     return message
 
-st.title("ChatGPT-like Web App")
-#storing the chat
-if 'generated' not in st.session_state:
-    st.session_state['generated'] = []
-if 'past' not in st.session_state:
-    st.session_state['past'] = []
-user_input=st.text_input("You:",key='input')
-if user_input:
-    output=generate_response(user_input)
-    #store the output
-    st.session_state['past'].append(user_input)
-    st.session_state['generated'].append(output)
-if st.session_state['generated']:
-    for i in range(len(st.session_state['generated'])-1, -1, -1):
-        message(st.session_state["generated"][i], key=str(i))
-        message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
+
         
 import plotly.express as px
-st.write('# Avocado Prices dashboard')  #st.title('Avocado Prices dashboard')
+st.write('# MDC Classroom Assistant')  #st.title('Avocado Prices dashboard')
 # https://markdown-editor.github.io/   This will help build markdown
 tab1, tab2 = st.tabs(["Tab 1", "Tab2"])
 with tab1:
     st.radio('Select one:', [1, 2])
-tab2.write("this is tab 2")
+with tab2:
+    st.title("ChatGPT-like Web App")
+    #storing the chat
+    if 'generated' not in st.session_state:
+        st.session_state['generated'] = []
+    if 'past' not in st.session_state:
+        st.session_state['past'] = []
+    user_input=st.text_input("You:",key='input')
+    if user_input:
+        output=generate_response(user_input)
+        #store the output
+        st.session_state['past'].append(user_input)
+        st.session_state['generated'].append(output)
+    if st.session_state['generated']:
+        for i in range(len(st.session_state['generated'])-1, -1, -1):
+            message(st.session_state["generated"][i], key=str(i))
+            message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
 st.markdown('''
 This is a dashboard showing the *average prices* of different types of :avocado:  
 Data source: [Kaggle](https://www.kaggle.com/datasets/timmate/avocado-prices-2020)
@@ -89,7 +90,7 @@ with st.form('line_chart'):
 
 with st.sidebar:
     st.subheader('About')
-    st.markdown('Data Analytics / Data Science Assistant:  Miami Dade College')
+    st.markdown('Data Analytics Assistant:  Miami Dade College')
         
 st.sidebar.image('https://clipground.com/images/miami-dade-college-logo-7.png', width=50)
 
