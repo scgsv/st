@@ -1,6 +1,8 @@
 import streamlit as st
 import openai
+
 st.title("CAP4936: Special Topics in Data Analytics with Dr. Lee")
+
 st.sidebar.header("Instructions")
 st.sidebar.info(
     '''This is a web application that allows you to interact with 
@@ -10,26 +12,18 @@ st.sidebar.info(
        '''
     )
 st.sidebar.image('https://clipground.com/images/miami-dade-college-logo-7.png', width=100)
+
 model_engine = 'text-davinci-003'
 openai.api_key = "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"
-def main():
-    '''
-    This function gets the user input, pass it to ChatGPT function and 
-    displays the response
-    '''
-    # Get user input
+
+# Add a function for each tab
+def chat_tab():
     user_query = st.text_input("Enter query here, to exit enter :q", "what is Python?")
     if user_query != ":q" or user_query != "":
-        # Pass the query to the ChatGPT function
         response = ChatGPT(user_query)
         return st.write(f"{user_query} {response}")
 
 def ChatGPT(user_query):
-    ''' 
-    This function uses the OpenAI API to generate a response to the given 
-    user_query using the ChatGPT model
-    '''
-    # Use the OpenAI API to generate a response
     completion = openai.Completion.create(
                                   engine = model_engine,
                                   prompt = user_query,
@@ -37,15 +31,34 @@ def ChatGPT(user_query):
                                   n = 1,
                                   temperature = 0.5,
                                       )
-    # response = completion.choices[0].text
-    # response = completion.choices[0]["text"].replace("\n", "")
     response = completion.choices[0]["text"]
-    # Split the response into lines
     lines = response.split("\n")
-    # Indent each line by four spaces
     indented_lines = ['    ' + line for line in lines]
-    # Join the indented lines into a single string
     indented_response = '\n'.join(indented_lines)
     return indented_response
-    return formatted_response
-main()
+
+def instructions_tab():
+    st.header("Instructions")
+    st.write(st.sidebar.info(
+    '''This is a web application that allows you to interact with 
+       the OpenAI API's implementation of the ChatGPT model.
+       Enter a **query** in the **text box** and **press enter** to receive 
+       a **response** from the ChatGPT
+       '''
+    ))
+
+def about_tab():
+    st.header("About")
+    st.write("Welcome to CAP4936: Special Topics in Data Analytics with Dr. Lee")
+    st.write("This is an app that uses the OpenAI API's implementation of the ChatGPT model")
+
+# Add the tabs to the app
+st.sidebar.title("Navigation")
+selected_tab = st.sidebar.radio("Select a tab", ["Chat", "Instructions", "About"])
+
+if selected_tab == "Chat":
+    chat_tab()
+elif selected_tab == "Instructions":
+    instructions_tab()
+else:
+    about_tab()
