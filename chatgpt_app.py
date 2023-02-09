@@ -40,6 +40,6 @@ def ChatGPT(user_query):
                                       )
     # response = completion.choices[0].text
     response = completion.choices[0]["text"].replace("\n", "")
-    formatted_response = wrap.indent(text=response, prefix='    ')
-    return response
+    formatted_response = wrap.fill(text=response, initial_indent='    ', subsequent_indent='    ')
+    return formatted_response
 main()
