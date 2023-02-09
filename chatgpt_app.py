@@ -1,6 +1,5 @@
 import streamlit as st
 import openai
-from textwrap3 import wrap
 st.title("CAP4936: Special Topics in Data Analytics with Dr. Lee")
 st.sidebar.header("Instructions")
 st.sidebar.info(
@@ -39,7 +38,14 @@ def ChatGPT(user_query):
                                   temperature = 0.5,
                                       )
     # response = completion.choices[0].text
-    response = completion.choices[0]["text"].replace("\n", "")
-    formatted_response = wrap.fill(text=response, initial_indent='    ', subsequent_indent='    ')
+    # response = completion.choices[0]["text"].replace("\n", "")
+    response = completion.choices[0]["text"]
+    # Split the response into lines
+    lines = response.split("\n")
+    # Indent each line by four spaces
+    indented_lines = ['    ' + line for line in lines]
+    # Join the indented lines into a single string
+    indented_response = '\n'.join(indented_lines)
+    return indented_response
     return formatted_response
 main()
