@@ -23,7 +23,7 @@ def main():
         response = ChatGPT(user_query)
         return st.write(f"{user_query} {response}")
 
-    def ChatGPT(user_query):
+def ChatGPT(user_query):
     ''' 
     This function uses the OpenAI API to generate a response to the given 
     user_query using the ChatGPT model
