@@ -1,6 +1,6 @@
 import streamlit as st
 import openai
-st.title("CAP4936: Special Topics in Data Analytics: Dr. Lee")
+st.title("CAP4936: Special Topics in Data Analytics with Dr. Lee")
 st.sidebar.header("Instructions")
 st.sidebar.info(
     '''This is a web application that allows you to interact with 
