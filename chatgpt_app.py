@@ -1,5 +1,6 @@
 import streamlit as st
 import openai
+from textwrap3 import textwrap
 st.title("CAP4936: Special Topics in Data Analytics with Dr. Lee")
 st.sidebar.header("Instructions")
 st.sidebar.info(
