@@ -1,6 +1,6 @@
 import streamlit as st
 import openai
-from textwrap3 import textwrap
+from textwrap3 import wrap
 st.title("CAP4936: Special Topics in Data Analytics with Dr. Lee")
 st.sidebar.header("Instructions")
 st.sidebar.info(
@@ -40,6 +40,6 @@ def ChatGPT(user_query):
                                       )
     # response = completion.choices[0].text
     response = completion.choices[0]["text"].replace("\n", "")
-    formatted_response = textwrap.indent(text=response, prefix='    ')
+    formatted_response = wrap.indent(text=response, prefix='    ')
     return response
 main()
