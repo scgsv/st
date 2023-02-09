@@ -1,6 +1,6 @@
 import streamlit as st
 import openai
-st.title("CAP4936: Special Topics in Data Analytics")
+st.title("CAP4936: Special Topics in Data Analytics: Dr. Lee")
 st.sidebar.header("Instructions")
 st.sidebar.info(
     '''This is a web application that allows you to interact with 
@@ -9,6 +9,7 @@ st.sidebar.info(
        a **response** from the ChatGPT
        '''
     )
+st.sidebar.image('https://clipground.com/images/miami-dade-college-logo-7.png', width=75)
 model_engine = 'text-davinci-003'
 openai.api_key = "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"
 def main():
