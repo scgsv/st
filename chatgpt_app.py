@@ -38,3 +38,4 @@ def ChatGPT(user_query):
                                       )
     response = completion.choices[0].text
     return response
+main()
