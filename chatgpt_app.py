@@ -37,6 +37,7 @@ def ChatGPT(user_query):
                                   n = 1,
                                   temperature = 0.5,
                                       )
-    response = completion.choices[0].text
+    # response = completion.choices[0].text
+    response = completion.choices[0]["text"].replace("\n", "")
     return response
 main()
