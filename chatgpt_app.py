@@ -9,9 +9,9 @@ st.sidebar.info(
        a **response** from the ChatGPT
        '''
     )
-st.sidebar.image('https://clipground.com/images/miami-dade-college-logo-7.png', width=75)
+st.sidebar.image('https://clipground.com/images/miami-dade-college-logo-7.png', width=100)
 model_engine = 'text-davinci-003'
-openai.api_key = "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"
+openai.api_key = "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"
 def main():
     '''
     This function gets the user input, pass it to ChatGPT function and 
