@@ -59,7 +59,9 @@ def concept_tab():
 def explain_code_tab():
     st.title("Code Editor")
     
-    default_value = "print("Miami Dade College - Data Analytics!")
+    default_value = '''
+    print("Miami Dade College - Data Analytics!")
+    '''
     
     code_input = st.text_area("Paste your code snippet here and it will be explained: ", value=default_value)
 
