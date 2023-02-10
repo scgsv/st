@@ -22,7 +22,7 @@ def code_help_tab():
     if user_query != ":q" or user_query != "":
         response = ChatGPT(user_query)
         # st.code('for i in range(8): foo()')
-        return st.code(f"{user_query} {response}")
+        return st.code(f"{response}")
 
 def ChatGPT(user_query):
     completion = openai.Completion.create(
