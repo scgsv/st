@@ -18,7 +18,7 @@ st.sidebar.info(
 model_engine = 'text-davinci-003'
 
 # Add a function for each tab
-@st.cache(suppress_st_warning=True)
+
 def code_help_tab():
     user_query = st.text_input("Enter query here, to exit enter :q", "write a python class with a sample method?")
     if user_query != ":q" or user_query != "":
@@ -39,7 +39,7 @@ def ChatGPT(user_query):
     indented_lines = ['    ' + line for line in lines]
     indented_response = '\n'.join(indented_lines)
     return indented_response
-@st.cache(suppress_st_warning=True)
+
 def concept_tab():
     user_query = st.text_input("Describe a concept that you would like to understand: ")
     if user_query != ":q" or user_query != "":
@@ -50,7 +50,7 @@ def concept_tab():
         response = chatgpt.choices[0]["text"].replace("\n", "") # to remonve all the \n - Courtesy of Alex Z.
         # response = get_sentiment(user_query)
         return st.write(f"{response}")
-@st.cache(suppress_st_warning=True)
+
 def explain_code_tab():
     st.title("Code Editor")
 
@@ -67,7 +67,7 @@ def explain_code_tab():
     indented_response = '\n'.join(indented_lines)
     # return indented_response
     return st.code(f"{indented_response}")
-@st.cache(suppress_st_warning=True)
+
 def explain_code_with_words_tab():
     st.title("Code Editor")
 
@@ -80,7 +80,7 @@ def explain_code_with_words_tab():
     chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
     response = chatgpt.choices[0]["text"].replace("\n", "") # to remonve all the \n - Courtesy of Alex Z.
     return st.write(f"{response}")
-@st.cache(suppress_st_warning=True)
+
 def bug_fix_tab():
     st.title("Find the bug!")
 
@@ -97,7 +97,7 @@ def bug_fix_tab():
     indented_response = '\n'.join(indented_lines)
     # return indented_response
     return st.code(f"{indented_response}")
-@st.cache(suppress_st_warning=True)
+
 def sentiment_tab():
     user_query = st.text_input("Place a passage or tweet here and we will decide the sentiment")
     if user_query != ":q" or user_query != "":
@@ -119,7 +119,7 @@ def generate_response(prompt):
     )
     message=completion.choices[0].text
     return message
-@st.cache(suppress_st_warning=True)
+
 def chat_tab():
     st.title("ChatGPT-like Web App")
     #storing the chat
@@ -141,7 +141,7 @@ def chat_tab():
             message(st.session_state["generated"][i], key=str(i))
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
     
-@st.cache(suppress_st_warning=True)  
+
 def image_tab():
     user_query = st.text_input("Describe an image that you would like to see:")
     if user_query != ":q" or user_query != "":
@@ -260,7 +260,7 @@ def summarize_the_summaries(summaries):
         print(f"# Response: {msg}")
 
     return msg
-@st.cache(suppress_st_warning=True)
+
 def yt_summary_tab():
     default_value = "https://www.youtube.com/watch?v=TfBawacOaeg"
     user_query = st.text_input("Place a YouTube URL here and make sure CC is enabled: ", value=default_value)
