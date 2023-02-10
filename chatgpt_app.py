@@ -262,7 +262,7 @@ def yt_summary_tab():
 
 # Add the tabs to the app
 st.sidebar.title("Navigation")
-selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "Explain this code", "Sentiment","Image","Bug Fix","Chat"])
+selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "Explain this code", "Sentiment","Image","Bug Fix","Chat","YouTube Summarizer"])
 
 if selected_tab == "Code Help":
     code_help_tab()
@@ -275,6 +275,8 @@ elif selected_tab == "Sentiment":
 elif selected_tab == "Image":
     image_tab()
 elif selected_tab == "Image":
+    chat_tab()
+elif yt_summary_tab == "Image":
     chat_tab()
 else:
     explain_code_tab()
