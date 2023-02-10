@@ -105,12 +105,14 @@ def image_tab():
 
 # Add the tabs to the app
 st.sidebar.title("Navigation")
-selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "Explain this code", "Sentiment","Image"])
+selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "Explain this code", "Sentiment","Image","Bug Fix"])
 
 if selected_tab == "Code Help":
     code_help_tab()
 elif selected_tab == "Concept Help":
     concept_tab()
+elif selected_tab == "Bug Fix":
+    bug_fix_tab()
 elif selected_tab == "Sentiment":
     sentiment_tab()
 elif selected_tab == "Image":
