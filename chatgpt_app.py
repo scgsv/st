@@ -93,6 +93,17 @@ def sentiment_tab():
         response = chatgpt.choices[0]["text"].replace("\n", "") # to remonve all the \n - Courtesy of Alex Z.
         # response = get_sentiment(user_query)
         return st.write(f"{response}")
+def generate_response(prompt):
+    completion=openai.Completion.create(
+        engine='text-davinci-003',
+        prompt=prompt,
+        max_tokens=1024,
+        n=1,
+        stop=None,
+        temperature=0.7,
+    )
+    message=completion.choices[0].text
+    return message
 def chat_tab():
     st.title("ChatGPT-like Web App")
     #storing the chat
