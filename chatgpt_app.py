@@ -59,7 +59,7 @@ def explain_code_tab():
         st.code(code_input)
     prompt = "Explain this code by adding extensive and easy to understand comments in the code: " + code_input
     chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
-    response = completion.choices[0]["text"]
+    response = chatgpt.choices[0]["text"]
     lines = response.split("\n")
     indented_lines = ['    ' + line for line in lines]
     indented_response = '\n'.join(indented_lines)
