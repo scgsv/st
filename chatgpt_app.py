@@ -60,7 +60,7 @@ def sentiment_tab():
         # print(type(chatgpt.choices[0]['text']))
         response = chatgpt.choices[0]["text"].replace("\n", "") # to remonve all the \n - Courtesy of Alex Z.
         # response = get_sentiment(user_query)
-        return st.write(f"{user_query} {response}")
+        return st.write(f"{user_query} \n {response}")
     
 def get_sentiment(user_query):
     # chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1000)
