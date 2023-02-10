@@ -119,10 +119,150 @@ def image_tab():
         # return st.write(f"{image_url}")
         return st.image(image_url, width=400, # Manually Adjust the width of the image as per requirement
         )
+diagnostics = 0
+include_mentions = 0
+
+def get_video_id_from_video_id_or_url(video_id_or_url):
+    # a youtube video id is 11 characters long
+    # if the video id is longer than that, then it's a url
+    if len(video_id_or_url) > 11:
+        # it's a url
+        # the video id is the last 11 characters
+        return video_id_or_url[-11:]
+    else:
+        # it's a video id
+        return video_id_or_url
+
+def get_chunks_from_youtube(video_id):
+    # this function will get the transcript of a youtube video
+    # and return it as an array of chunks
+    # where each chunk is an array of lines
+
+    # first get the transcript
+    transcript = YouTubeTranscriptApi.get_transcript(video_id)
+    print(transcript)
+
+    chunks = []
+
+    start_timestamp = 0.0
+    current_timestamp_mins = 0.0
+
+    current_chunk = []
+
+    for entry in transcript:
+        current_timestamp_mins = entry['start'] / 60.0
+
+        # if the current timestamp is more than 10 minutes after the start timestamp
+        # then we have a chunk
+        if current_timestamp_mins - start_timestamp > 10:
+            # add the current chunk to the list of chunks
+            chunks.append(current_chunk)
+            # reset the start timestamp
+            start_timestamp = current_timestamp_mins
+            # reset the current chunk
+            current_chunk = []
+
+        # add the line to the current chunk
+        current_chunk.append(entry['text'])
+
+    # add the last chunk
+    if len(current_chunk) > 0:
+        chunks.append(current_chunk)
+
+    print(f"Found {len(chunks)} chunks")
+
+    return chunks
+
+def summarize_chunk(index, chunk):
+    chunk_str = "\n".join(chunk)
+    prompt = f"""The following is a section of the transcript of a youtube video. It is section #{index+1}:
+    {chunk_str}
+    Summarize this section of the transcript."""
+
+    if diagnostics:
+        # print each line of the prompt with a leading # so we can see it in the output
+        for line in prompt.split('\n'):
+            print(f"# {line}")
+
+    completion = openai.Completion.create(
+        engine="text-davinci-003", 
+        max_tokens=500, 
+        temperature=0.9,
+        prompt=prompt,
+        frequency_penalty=0
+    )
+
+    msg = completion.choices[0].text
+
+    if diagnostics:
+        print(f"# Response: {msg}")
+
+    return msg
+
+def summarize_the_summaries(summaries):
+
+    summaries_str = ""
+    for index, summary in enumerate(summaries):
+        summaries_str += f"Summary of chunk {index+1}:\n{summary}\n\n"
+
+    prompt = f"""The following are summaries of a youtube video in 10 minute chunks:"
+    {summaries_str}
+    Summarize the summaries."""
+
+    if diagnostics:
+        # print each line of the prompt with a leading # so we can see it in the output
+        for line in prompt.split('\n'):
+            print(f"# {line}")
+
+    completion = openai.Completion.create(
+        engine="text-davinci-003", 
+        max_tokens=500, 
+        temperature=0.2,
+        prompt=prompt,
+        frequency_penalty=0
+    )
+
+    msg = completion.choices[0].text
+
+    if diagnostics:
+        print(f"# Response: {msg}")
+
+    return msg
+def yt_summary_tab():
+    user_query = st.text_input("Place a YouTube URL here and make sure CC is enabled: ")
+    if user_query != ":q" or user_query != "":
+        # prompt = "Decide the sentiment of a passage as positive,neutral, or negative and give the percent confidence: " + user_query
+        # Get the transcript of the video
+        video_id_or_url = user_query
+
+        # if the video id or url is a url, extract the video id
+        video_id = get_video_id_from_video_id_or_url(video_id_or_url)
+
+        # chunks = get_chunks(transcript_file_name)
+        chunks = get_chunks_from_youtube(video_id)
+
+        if len(chunks) == 0:
+            st.write("No chunks found")
+        elif len(chunks) == 1:
+            summary = summarize_chunk(0, chunks[0])
+            st.write(f"\nSummary: {summary}")
+        else:
+            # Now we have the chunks, we can summarize each one
+            summaries = []
+            for index, chunk in enumerate(chunks):
+                summary = summarize_chunk(index, chunk)
+                summaries.append(summary)
+                st.write(f"\nSummary of chunk {index+1}: {summary}")
+
+                # Now we have the summaries, we can summarize the summaries
+                summary_of_summaries = summarize_the_summaries(summaries)
+
+                st.write(f"\nSummary of summaries: {summary_of_summaries}")
+
 
 # Add the tabs to the app
 st.sidebar.title("Navigation")
-selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "Explain this code", "Sentiment","Image","Bug Fix"])
+selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "Explain this code", "Sentiment","Image","Bug Fix","Chat"])
 
 if selected_tab == "Code Help":
     code_help_tab()
@@ -134,5 +274,7 @@ elif selected_tab == "Sentiment":
     sentiment_tab()
 elif selected_tab == "Image":
     image_tab()
+elif selected_tab == "Image":
+    chat_tab()
 else:
     explain_code_tab()
