@@ -54,7 +54,7 @@ def concept_tab():
 def explain_code_tab():
     st.title("Code Editor")
 
-    code_input = st.text_area("Paste your code here")
+    code_input = st.text_area("Paste your code here and it will be explained: ")
 
     if code_input:
         st.write("Output:")
@@ -67,6 +67,18 @@ def explain_code_tab():
     indented_response = '\n'.join(indented_lines)
     # return indented_response
     return st.code(f"{indented_response}")
+def explain_code_with_words_tab():
+    st.title("Code Editor")
+
+    code_input = st.text_area("Paste your code here and it will be explained: ")
+
+    if code_input:
+        st.write("Output:")
+        st.code(code_input)
+    prompt = "Explain this code using words with a very intuitive and cheerful tone: " + code_input
+    chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
+    response = chatgpt.choices[0]["text"].replace("\n", "") # to remonve all the \n - Courtesy of Alex Z.
+    return st.write(f"{response}")
 def bug_fix_tab():
     st.title("Find the bug!")
 
@@ -279,7 +291,7 @@ def yt_summary_tab():
 
 # Add the tabs to the app
 st.sidebar.title("Navigation")
-selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "Explain this code", "Sentiment","Image","Bug Fix","Chat","YouTube Summarizer"])
+selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "Explain this code", "Sentiment","Image","Bug Fix","Chat","YouTube Summarizer","Explain Code with Words"])
 
 if selected_tab == "Code Help":
     code_help_tab()
@@ -295,5 +307,7 @@ elif selected_tab == "Chat":
     chat_tab()
 elif selected_tab == "YouTube Summarizer":
     yt_summary_tab()
+elif selected_tab == "Explain Code with Words":
+    explain_code_with_words_tab()
 else:
     explain_code_tab()
