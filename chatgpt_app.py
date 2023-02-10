@@ -274,9 +274,9 @@ elif selected_tab == "Sentiment":
     sentiment_tab()
 elif selected_tab == "Image":
     image_tab()
-elif selected_tab == "Image":
+elif selected_tab == "Chat":
     chat_tab()
-elif yt_summary_tab == "Image":
-    chat_tab()
+elif selected_tab == "YouTube Summarizer":
+    yt_summary_tab()
 else:
     explain_code_tab()
