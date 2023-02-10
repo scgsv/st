@@ -64,9 +64,9 @@ def sentiment_tab():
     
   
 def image_tab():
-    user_query = st.text_input("Place a passage or tweet here and we will decide the sentiment")
+    user_query = st.text_input("Describe an image that you would like to see:")
     if user_query != ":q" or user_query != "":
-        prompt = "Decide the sentiment of a passage as positive,neutral, or negative and give the percent confidence: " + user_query
+        prompt = "photorealistic in the style of disney: " + user_query
         response = openai.Image.create(prompt=prompt, n=1,size="1024x1024")
         image_url = response['data'][0]['url']
         return st.write(f"{image_url}")
