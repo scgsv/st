@@ -112,12 +112,13 @@ def chat_tab():
     if 'past' not in st.session_state:
         st.session_state['past'] = []
     user_input=st.text_input("You:",key='input')
+    user_input.clear()
     if user_input:
         output=generate_response(user_input)
         #store the output
         st.session_state['past'].append(user_input)
         st.session_state['generated'].append(output)
-        user_input.clear()
+
     if st.session_state['generated']:
         for i in range(len(st.session_state['generated'])-1, -1, -1):
             message(st.session_state["generated"][i], key=str(i))
