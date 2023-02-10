@@ -38,14 +38,15 @@ def ChatGPT(user_query):
     return indented_response
 
 def concept_tab():
-    st.header("Instructions")
-    st.write(st.sidebar.info(
-    '''This is a web application that allows you to interact with 
-       the OpenAI API's implementation of the ChatGPT model.
-       Enter a **query** in the **text box** and **press enter** to receive 
-       a **response** from the ChatGPT
-       '''
-    ))
+    user_query = st.text_input("Describe a concept that you would like to understand: ")
+    if user_query != ":q" or user_query != "":
+        prompt = "Explain this concept at the level of a 16 year old.  Use analogies, real world examples, and provide an easy, creative intuitive explanation: " + user_query
+        chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
+        # print(chatgpt.choices[0]['text'])
+        # print(type(chatgpt.choices[0]['text']))
+        response = chatgpt.choices[0]["text"].replace("\n", "") # to remonve all the \n - Courtesy of Alex Z.
+        # response = get_sentiment(user_query)
+        return st.write(f"{response}")
 
 def about_tab():
     st.header("About")
