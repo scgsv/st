@@ -55,7 +55,7 @@ def sentiment_tab():
     user_query = st.text_input("Place a passage or tweet here and we will decide the sentiment")
     if user_query != ":q" or user_query != "":
         prompt = "Decide the sentiment of a passage as positive,neutral, or negative: " + user_query
-        chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=input, max_tokens=1024)
+        chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
         # print(chatgpt.choices[0]['text'])
         # print(type(chatgpt.choices[0]['text']))
         return chatgpt.choices[0]["text"].replace("\n", "") # to remonve all the \n - Courtesy of Alex Z.
@@ -65,7 +65,7 @@ def sentiment_tab():
 def get_sentiment(user_query):
     # chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1000)
     prompt = "Decide the sentiment of a passage as positive,neutral, or negative: " + user_query
-    chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=input, max_tokens=1024)
+    chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
     # print(chatgpt.choices[0]['text'])
     # print(type(chatgpt.choices[0]['text']))
     return chatgpt.choices[0]["text"].replace("\n", "") # to remonve all the \n - Courtesy of Alex Z.
