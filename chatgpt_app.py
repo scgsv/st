@@ -16,16 +16,7 @@ st.sidebar.info(
 
 
 model_engine = 'text-davinci-003'
-openai.api_key = "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"
-
-# Store the API key
-st.secret("api_key", "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")
-
-# Retrieve the API key
-api_key = st.secret("api_key")
-
-st.write("Your API key is:", api_key)
-
+api_key = openai.api_key = "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"
 
 # Add a function for each tab
 def code_help_tab():
