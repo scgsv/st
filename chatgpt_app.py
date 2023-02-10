@@ -57,6 +57,14 @@ def explain_code_tab():
     if code_input:
         st.write("Output:")
         st.code(code_input)
+    prompt = "Explain this code by adding extensive and easy to understand comments in the code: " + code_input
+    chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
+    response = completion.choices[0]["text"]
+    lines = response.split("\n")
+    indented_lines = ['    ' + line for line in lines]
+    indented_response = '\n'.join(indented_lines)
+    # return indented_response
+    return st.code(f"{indented_response}")
 def sentiment_tab():
     user_query = st.text_input("Place a passage or tweet here and we will decide the sentiment")
     if user_query != ":q" or user_query != "":
