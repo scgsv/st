@@ -7,10 +7,9 @@ st.title("CAP4936: Special Topics in Data Analytics with Dr. Lee")
 st.sidebar.image('https://clipground.com/images/miami-dade-college-logo-7.png', width=100)
 st.sidebar.header("Instructions")
 st.sidebar.info(
-    '''This is a web application that allows you to interact with 
-       the OpenAI API's implementation of the ChatGPT model.
-       Enter a **query** in the **text box** and **press enter** to receive 
-       a **response** from the ChatGPT
+    '''This is a web application that serves as a Teaching Assistant for Dr. Ernesto Lee.
+       Enter a **query** in the **text boxes** and **press enter** to receive 
+       a **response**.
        '''
     )
 
