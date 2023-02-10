@@ -78,8 +78,11 @@ def explain_code_tab():
 
 def explain_code_with_words_tab():
     st.title("Code Editor")
-
-    code_input = st.text_area("Paste your code here and it will be explained: ")
+    default_value = '''
+    print("Miami Dade College - Data Analytics!")
+    print("This is default text")
+    '''
+    code_input = st.text_area("Paste your code here and it will be explained: ", value=default_value)
 
     if code_input:
         st.write("Output:")
@@ -90,9 +93,12 @@ def explain_code_with_words_tab():
     return st.write(f"{response}")
 
 def bug_fix_tab():
+    default_value = '''
+    print("Miami Dade College - Data Analytics!)
+    '''
     st.title("Find the bug!")
 
-    code_input = st.text_area("Paste your code here")
+    code_input = st.text_area("Paste your code here",value=default_value)
 
     if code_input:
         st.write("Output:")
@@ -107,7 +113,10 @@ def bug_fix_tab():
     return st.code(f"{indented_response}")
 
 def sentiment_tab():
-    user_query = st.text_input("Place a passage or tweet here and we will decide the sentiment")
+    default_value = '''
+    I woke up this morning feeling great!  Then I lost a chess game on chess.com.
+    '''
+    user_query = st.text_input("Place a passage or tweet here and we will decide the sentiment",value=default_value)
     if user_query != ":q" or user_query != "":
         prompt = "Decide the sentiment of a passage as positive,neutral, or negative and give the percent confidence: " + user_query
         chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
@@ -151,7 +160,10 @@ def chat_tab():
     
 
 def image_tab():
-    user_query = st.text_input("Describe an image that you would like to see:")
+    default_value = '''
+    Graduation Day at Miami Dade College!
+    '''
+    user_query = st.text_input("Describe an image that you would like to see:",value=default_value)
     if user_query != ":q" or user_query != "":
         prompt = "photorealistic in the style of disney: " + user_query
         response = openai.Image.create(prompt=prompt, n=1,size="1024x1024")
