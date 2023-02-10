@@ -124,8 +124,8 @@ def chat_tab():
     if 'past' not in st.session_state:
         st.session_state['past'] = []
     user_input=st.text_input("You:",key='input')
-    time.sleep(15)
-    user_input=st.text_input("You:",key='input')
+    # time.sleep(15)
+    # user_input=st.text_input("You:",key='input')
     if user_input:
         output=generate_response(user_input)
         #store the output
