@@ -231,7 +231,8 @@ def summarize_the_summaries(summaries):
 
     return msg
 def yt_summary_tab():
-    user_query = st.text_input("Place a YouTube URL here and make sure CC is enabled: ")
+    default_value = "https://www.youtube.com/watch?v=TfBawacOaeg"
+    user_query = st.text_input("Place a YouTube URL here and make sure CC is enabled: ", value=default_value)
     if user_query != ":q" or user_query != "":
         # prompt = "Decide the sentiment of a passage as positive,neutral, or negative and give the percent confidence: " + user_query
         # Get the transcript of the video
@@ -256,10 +257,10 @@ def yt_summary_tab():
                 summaries.append(summary)
                 st.write(f"\nSummary of chunk {index+1}: {summary}")
 
-                # Now we have the summaries, we can summarize the summaries
-                summary_of_summaries = summarize_the_summaries(summaries)
+            # Now we have the summaries, we can summarize the summaries
+            summary_of_summaries = summarize_the_summaries(summaries)
 
-                st.write(f"\nSummary of summaries: {summary_of_summaries}")
+            st.write(f"\nSummary of summaries: {summary_of_summaries}")
 
 
 # Add the tabs to the app
