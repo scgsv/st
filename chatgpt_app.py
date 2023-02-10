@@ -21,6 +21,7 @@ def code_help_tab():
     user_query = st.text_input("Enter query here, to exit enter :q", "write a python class with a sample method?")
     if user_query != ":q" or user_query != "":
         response = ChatGPT(user_query)
+        st.code('for i in range(8): foo()')
         return st.write(f"{user_query} {response}")
 
 def ChatGPT(user_query):
@@ -48,10 +49,14 @@ def concept_tab():
         # response = get_sentiment(user_query)
         return st.write(f"{response}")
 
-def about_tab():
-    st.header("About")
-    st.write("Welcome to CAP4936: Special Topics in Data Analytics with Dr. Lee")
-    st.write("This is an app that uses the OpenAI API's implementation of the ChatGPT model")
+def explain_code_tab():
+    st.title("Code Editor")
+
+    code_input = st.text_area("Paste your code here")
+
+    if code_input:
+        st.write("Output:")
+        st.code(code_input)
 def sentiment_tab():
     user_query = st.text_input("Place a passage or tweet here and we will decide the sentiment")
     if user_query != ":q" or user_query != "":
@@ -76,7 +81,7 @@ def image_tab():
 
 # Add the tabs to the app
 st.sidebar.title("Navigation")
-selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "About", "Sentiment","Image"])
+selected_tab = st.sidebar.radio("Select a tab", ["Code Help", "Concept Help", "Explain this code", "Sentiment","Image"])
 
 if selected_tab == "Code Help":
     code_help_tab()
@@ -87,4 +92,4 @@ elif selected_tab == "Sentiment":
 elif selected_tab == "Image":
     image_tab()
 else:
-    about_tab()
+    explain_code_tab()
