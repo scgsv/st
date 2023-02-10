@@ -52,14 +52,14 @@ def about_tab():
     st.write("Welcome to CAP4936: Special Topics in Data Analytics with Dr. Lee")
     st.write("This is an app that uses the OpenAI API's implementation of the ChatGPT model")
 def sentiment_tab():
-    user_query = st.text_input("Enter query here, to exit enter :q", "write a python class with a sample method?")
+    user_query = st.text_input("Place a passage or tweet here and we will decide the sentiment")
     if user_query != ":q" or user_query != "":
         response = ChatGPT(user_query)
         return st.write(f"{user_query} {response}")
     
 def get_sentiment(user_query):
     # chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1000)
-    prompt = "Decide the sentiment of a passage as positive,neutral, or negative: " + user_query
+    prompt = "Decide the sentiment of a passage as positive,neutral, or negative and give a percent confidence: " + user_query
     chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=input, max_tokens=1000)
     # print(chatgpt.choices[0]['text'])
     # print(type(chatgpt.choices[0]['text']))
