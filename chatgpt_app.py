@@ -20,7 +20,7 @@ model_engine = 'text-davinci-003'
 openai.api_key = st.secrets["api_key"]
 
 # Add a function for each tab
-@st.cache
+@st.cache(suppress_st_warning=True)
 def code_help_tab():
     user_query = st.text_input("Enter query here, to exit enter :q", "write a python class with a sample method?")
     if user_query != ":q" or user_query != "":
