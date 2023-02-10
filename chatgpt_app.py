@@ -65,6 +65,22 @@ def explain_code_tab():
     indented_response = '\n'.join(indented_lines)
     # return indented_response
     return st.code(f"{indented_response}")
+def bug_fix_tab():
+    st.title("Find the bug!")
+
+    code_input = st.text_area("Paste your code here")
+
+    if code_input:
+        st.write("Output:")
+        st.code(code_input)
+    prompt = "Find the bug in this code and provide a fix with comments explaining the bug and the fix: " + code_input
+    chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
+    response = chatgpt.choices[0]["text"]
+    lines = response.split("\n")
+    indented_lines = ['    ' + line for line in lines]
+    indented_response = '\n'.join(indented_lines)
+    # return indented_response
+    return st.code(f"{indented_response}")
 def sentiment_tab():
     user_query = st.text_input("Place a passage or tweet here and we will decide the sentiment")
     if user_query != ":q" or user_query != "":
