@@ -1,7 +1,7 @@
 import streamlit as st
 import openai
 from youtube_transcript_api import YouTubeTranscriptApi
-
+from streamlit_chat import message
 
 st.title("CAP4936: Special Topics in Data Analytics with Dr. Lee")
 st.sidebar.image('https://clipground.com/images/miami-dade-college-logo-7.png', width=100)
