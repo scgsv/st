@@ -69,7 +69,9 @@ def image_tab():
         prompt = "photorealistic in the style of disney: " + user_query
         response = openai.Image.create(prompt=prompt, n=1,size="1024x1024")
         image_url = response['data'][0]['url']
-        return st.write(f"{image_url}")
+        # return st.write(f"{image_url}")
+        return st.image(image_url, width=400, # Manually Adjust the width of the image as per requirement
+        )
 
 # Add the tabs to the app
 st.sidebar.title("Navigation")
