@@ -44,7 +44,9 @@ def ChatGPT(user_query):
     return indented_response
 
 def concept_tab():
-    user_query = st.text_input("Describe a concept that you would like to understand: ")
+    default_value = "Explain Quantum Chromodynamics in 5 sentences"
+    user_query = st.text_input("Describe a concept that you would like to understand: ", value=default_value)
+    
     if user_query != ":q" or user_query != "":
         prompt = "Explain this concept at the level of a 16 year old.  Use analogies, real world examples, and provide an easy, creative intuitive explanation: " + user_query
         chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
@@ -56,13 +58,15 @@ def concept_tab():
 
 def explain_code_tab():
     st.title("Code Editor")
-
-    code_input = st.text_area("Paste your code here and it will be explained: ")
+    
+    default_value = "print("Miami Dade College - Data Analytics!")
+    
+    code_input = st.text_area("Paste your code snippet here and it will be explained: ", value=default_value)
 
     if code_input:
         st.write("Output:")
         st.code(code_input)
-    prompt = "Explain this code by adding extensive and easy to understand comments in the code: " + code_input
+    prompt = "Explain this code by adding extensive and easy to understand comments in the original code: " + code_input
     chatgpt = openai.Completion.create(engine="text-davinci-003", prompt=prompt, max_tokens=1024)
     response = chatgpt.choices[0]["text"]
     lines = response.split("\n")
