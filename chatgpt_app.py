@@ -24,7 +24,7 @@ openai.api_key = st.secrets["api_key"]
 def code_help_tab():
     default_value = "Write a one line hello world in python"
     user_query = st.text_input("Tell me the code you want to write using plain English: ", value=default_value)
-    if user_query != ":q" or user_query != "":
+    if user_query != ":q" or user_query != "" or user_query !=default_value:
         response = ChatGPT(user_query)
         # st.code('for i in range(8): foo()')
         return st.code(f"{response}")
